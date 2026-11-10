@@ -1,0 +1,243 @@
+﻿<Window x:Class="Dental.UI.Views.DashboardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Dashboard"
+        Width="980"
+        Height="720"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC"
+        WindowState="Maximized"
+        Closing="DashboardWindow_Closing">
+    
+
+    <Window.Resources>
+        <Style x:Key="MenuButton" TargetType="Button">
+            <Setter Property="Height" Value="52"/>
+            <Setter Property="Margin" Value="12,6"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="18,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Background="#063B75" CornerRadius="0">
+            <Grid>
+                <StackPanel Margin="0,30,0,0">
+                    <TextBlock Text="🦷  Dentra&#x0a;"
+                               Foreground="White"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Margin="25,0,0,25"/>
+
+                    <Button Content="⌂  Dashboard"
+                            Background="#0B73E8"
+                            Style="{StaticResource MenuButton}"/>
+
+                    <Button Content="👤  Patients"
+                            Style="{StaticResource MenuButton}"/>
+
+                    <Button Content="📅  Calendar"
+                            Style="{StaticResource MenuButton}"/>
+
+                    <Button Content="📄  Templates"
+                            Style="{StaticResource MenuButton}"/>
+
+                    <Button Content="⚙  Settings"
+                            Style="{StaticResource MenuButton}"/>
+
+                    <Button Content="👤  Profile"
+                            Style="{StaticResource MenuButton}"/>
+                </StackPanel>
+
+                <Button Content="↪  Logout"
+                        Style="{StaticResource MenuButton}"
+                        VerticalAlignment="Bottom"
+                        Margin="12,0,12,30"/>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Border Grid.Column="1"
+                Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="1"
+                CornerRadius="10"
+                Margin="0,0,20,0"
+                Padding="40">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+
+                    <RowDefinition Height="Auto"/> <!-- Footer NEW -->
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Patients"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="#0F172A"
+                           Margin="0,0,0,25"/>
+
+                <!-- Search + Add -->
+                <Grid Grid.Row="1" Margin="0,0,0,25">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="180"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox x:Name="SearchTextBox"
+                             Height="56"
+                             FontSize="16"
+                             Padding="18,0"
+                             VerticalContentAlignment="Center"
+                             BorderBrush="#D8DEE9"
+                             TextChanged="SearchTextBox_TextChanged"/>
+
+                    <Button Grid.Column="2"
+                            Content="+  Add Patient"
+                            Height="56"
+                            FontSize="17"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            Background="#0B73E8"
+                            BorderBrush="#0B73E8"
+                            Click="AddPatientButton_Click"/>
+                </Grid>
+
+                <!-- Patients List -->
+                <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl x:Name="PatientsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White"
+                                    BorderBrush="#E5E7EB"
+                                    BorderThickness="1"
+                                    CornerRadius="10"
+                                    Padding="18"
+                                    Margin="0,0,0,16"
+                                    Cursor="Hand"
+                                    MouseLeftButtonUp="PatientCard_MouseLeftButtonUp"
+                                    Tag="{Binding Id}">
+
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+                                            <Setter Property="Effect">
+                                                <Setter.Value>
+                                                    <DropShadowEffect BlurRadius="0"
+                                                        ShadowDepth="0"
+                                                        Opacity="0"/>     
+                                                </Setter.Value>
+                                            </Setter>
+
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#F8FAFC"/>
+                                                    <Setter Property="BorderBrush" Value="#0B73E8"/>
+                                                    <Setter Property="Effect">
+                                                        <Setter.Value>
+                                                            <DropShadowEffect BlurRadius="14"
+                                                                ShadowDepth="2"
+                                                                Opacity="0.16"/>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="70"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="170"/>
+                                            <ColumnDefinition Width="40"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Border Width="56"
+                                                Height="56"
+                                                CornerRadius="28"
+                                                Background="#DBEAFE"
+                                                VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Initials}"
+                                                       FontSize="22"
+                                                       FontWeight="Bold"
+                                                       Foreground="#1E293B"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                        </Border>
+
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding FullName}"
+                                                       FontSize="19"
+                                                       FontWeight="Bold"
+                                                       Foreground="#111827"/>
+                                            <TextBlock FontSize="15"
+                                                       Foreground="#475569"
+                                                       Margin="0,6,0,0">
+                                                <Run Text="{Binding Age}"/>
+                                                <Run Text=" yrs  •  "/>
+                                                <Run Text="{Binding Phone}"/>
+                                            </TextBlock>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding CreatedAtText}"
+                                                   FontSize="14"
+                                                   Foreground="#475569"
+                                                   VerticalAlignment="Center"/>
+
+                                        <Button Grid.Column="3"
+                                                    Content="›"
+                                                    FontSize="32"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Tag="{Binding Id}"
+                                                    Click="OpenPatientButton_Click"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <StackPanel Grid.Row="3"
+                        Margin="0,20,0,0"
+                        HorizontalAlignment="Center">
+
+                    <TextBlock Text="⚠ System under testing"
+                        FontSize="18"
+                        Foreground="#DC2626"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Center"/>
+
+                    <TextBlock Text="Contact Developer: 01029711249"
+                        FontSize="14"
+                        Foreground="#64748B"
+                        HorizontalAlignment="Center"
+                        Margin="0,4,0,0"/>
+
+                    <TextBlock Text="Email: abdalrahman.saed.tech@gmail.com"
+                        FontSize="14"
+                        Foreground="#64748B"
+                        HorizontalAlignment="Center"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

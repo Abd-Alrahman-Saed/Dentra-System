@@ -1,0 +1,70 @@
+﻿<Window x:Class="Dental.UI.Views.AddNoteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Add Note"
+        Width="500"
+        Height="360"
+        WindowStartupLocation="CenterOwner"
+        Background="#F8FAFC"
+        ResizeMode="NoResize">
+
+    <Border Margin="24"
+            Background="White"
+            BorderBrush="#E5E7EB"
+            BorderThickness="1"
+            CornerRadius="12"
+            Padding="24">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Add Patient Note"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#0F172A"/>
+
+                <TextBlock Text="Write a general dental note for this patient."
+                           FontSize="14"
+                           Foreground="#64748B"
+                           Margin="0,8,0,18"/>
+            </StackPanel>
+
+            <TextBox x:Name="NoteTextBox"
+                     Grid.Row="1"
+                     FontSize="16"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     VerticalScrollBarVisibility="Auto"
+                     Padding="12"
+                     BorderBrush="#CBD5E1"
+                     BorderThickness="1"/>
+
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,20,0,0">
+
+                <Button Content="Cancel"
+                        Width="100"
+                        Height="38"
+                        Margin="0,0,10,0"
+                        Background="#F1F5F9"
+                        BorderBrush="#CBD5E1"
+                        Click="CancelButton_Click"/>
+
+                <Button Content="Save"
+                        Width="100"
+                        Height="38"
+                        Background="#0B73E8"
+                        Foreground="White"
+                        BorderThickness="0"
+                        Click="SaveButton_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

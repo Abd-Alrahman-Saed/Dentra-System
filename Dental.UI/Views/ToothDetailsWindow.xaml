@@ -1,0 +1,318 @@
+﻿<Window x:Class="Dental.UI.Views.ToothDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Tooth Details"
+        Width="900"
+        Height="620"
+        WindowStartupLocation="CenterScreen"
+        Background="#F8FAFC">
+
+    <Window.Resources>
+
+        <Style x:Key="SideTabButton" TargetType="Button">
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Margin" Value="0,6"/>
+            <Setter Property="FontSize" Value="17"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#64748B"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+
+        <Style x:Key="VisitCard" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#E5E7EB"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="18"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Sidebar -->
+        <Border Background="White"
+                BorderBrush="#E5E7EB"
+                BorderThickness="0,0,1,0"
+                Padding="30">
+
+            <StackPanel>
+                <Border Width="92" Height="92" CornerRadius="46"
+                        Background="#DBEAFE"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,12">
+                    <TextBlock Text="🦷"
+                               FontSize="42"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                </Border>
+
+                <TextBlock Text="Tooth"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock x:Name="ToothNumberTextBlock"
+                           FontSize="42"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock x:Name="ToothArchTextBlock"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,42"/>
+
+                <Button x:Name="TimelineButton"
+                        Content="+  Timeline"
+                        Style="{StaticResource SideTabButton}"
+                        Click="TimelineButton_Click"/>
+
+                <Button x:Name="AllVisitsButton"
+                        Content="📄  All Visits"
+                        Style="{StaticResource SideTabButton}"
+                        Click="AllVisitsButton_Click"/>
+
+                <Button x:Name="ToothInfoButton"
+                        Content="📄  Tooth Info"
+                        Style="{StaticResource SideTabButton}"
+                        Click="ToothInfoButton_Click"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Right -->
+        <Grid Grid.Column="1" Margin="36">
+
+            <!-- Timeline -->
+            <Grid x:Name="TimelinePanel">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="Timeline of Visits"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#0B73E8"
+                           Margin="0,0,0,20"/>
+
+                <!-- ✅ Scroll هنا -->
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl x:Name="TimelineItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource VisitCard}"
+                                        Cursor="Hand"
+                                        MouseLeftButtonUp="VisitCard_MouseLeftButtonUp">
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="40"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding VisitTitle}"
+                                                       FontSize="17"
+                                                       FontWeight="Bold"
+                                                       Foreground="{Binding VisitColor}"/>
+
+                                            <TextBlock Text="{Binding Treatment}"
+                                                       FontSize="16"
+                                                       Margin="0,10,0,0"/>
+
+                                            <TextBlock Text="{Binding ImagesCountText}"
+                                                       FontSize="15"
+                                                       Margin="0,10,0,0"/>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding VisitDateText}"
+                                                   FontSize="16"
+                                                   FontWeight="Bold"
+                                                   Foreground="{Binding VisitColor}"/>
+
+                                        <TextBlock Grid.Column="2"
+                                                   Text="›"
+                                                   FontSize="40"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+                <Button Grid.Row="2"
+                        Content="+  Add New Visit"
+                        Height="58"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Background="#0B73E8"
+                        Click="AddNewVisitButton_Click"/>
+            </Grid>
+
+            <!-- All Visits -->
+            <Grid x:Name="AllVisitsPanel"
+                  Visibility="Collapsed">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Text="All Visits"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#0B73E8"
+                           Margin="0,0,0,20"/>
+
+                <!-- ✅ Scroll هنا -->
+                <ScrollViewer Grid.Row="1"
+                              VerticalScrollBarVisibility="Auto">
+
+                    <ItemsControl x:Name="AllVisitsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Style="{StaticResource VisitCard}">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding VisitDateText}"
+                                                   FontSize="18"
+                                                   FontWeight="Bold"/>
+
+                                        <TextBlock Text="{Binding Treatment}"
+                                                   Margin="0,10,0,0"/>
+
+                                        <TextBlock Text="{Binding Notes}"
+                                                   Margin="0,8,0,0"/>
+
+                                        <TextBlock Text="{Binding ImagesCountText}"
+                                                   Margin="0,8,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </ScrollViewer>
+            </Grid>
+
+            <!-- Tooth Info -->
+            <!-- Tooth Info -->
+            <Border x:Name="ToothInfoPanel"
+        Visibility="Collapsed"
+        Background="White"
+        BorderBrush="#E5E7EB"
+        BorderThickness="1"
+        CornerRadius="10"
+        Padding="28">
+
+                <StackPanel>
+                    <TextBlock Text="Tooth Info"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#0B73E8"
+                   Margin="0,0,0,26"/>
+
+                    <!-- Status Row -->
+                    <Border Background="#F8FAFC"
+                CornerRadius="10"
+                Padding="16"
+                Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Status"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Foreground="#64748B"/>
+
+                            <StackPanel Grid.Column="1"
+                            Orientation="Horizontal">
+                                <Ellipse x:Name="StatusDot"
+                             Width="10"
+                             Height="10"
+                             VerticalAlignment="Center"
+                             Margin="0,0,8,0"/>
+
+                                <TextBlock x:Name="StatusTextBlock"
+                               FontSize="17"
+                               FontWeight="Bold"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Last Visit Row -->
+                    <Border Background="#F8FAFC"
+                CornerRadius="10"
+                Padding="16"
+                Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Last Visit"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Foreground="#64748B"/>
+
+                            <TextBlock x:Name="LastVisitTextBlock"
+                           Grid.Column="1"
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           Foreground="#111827"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Notes Row -->
+                    <Border Background="#F8FAFC"
+                CornerRadius="10"
+                Padding="16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="140"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="Notes"
+                           FontSize="16"
+                           FontWeight="SemiBold"
+                           Foreground="#64748B"/>
+
+                            <TextBlock x:Name="NotesTextBlock"
+                           Grid.Column="1"
+                           FontSize="17"
+                           Foreground="#111827"
+                           TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

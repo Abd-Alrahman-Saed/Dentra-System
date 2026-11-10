@@ -1,0 +1,71 @@
+## ==============================================================================
+## Dentra System - .gitignore for .NET 10 / C# / WPF / Visual Studio
+## ==============================================================================
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Standalone Publish / Binaries directory
+Dentra System/
+publish/
+[Aa]pp[Pp]ackages/
+_UpgradeReport_Files/
+[Ff]backup/
+
+# Visual Studio files
+.vs/
+*.sln.ide/
+
+# Visual Studio Code & JetBrains Rider
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Local Database & Cache files
+*.mdf
+*.ldf
+*.ndf
+*.db-shm
+*.db-wal
+
+# Windows system files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride

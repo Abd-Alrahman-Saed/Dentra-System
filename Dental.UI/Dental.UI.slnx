@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../Dental.Application/Dental.Application.csproj" />
+  <Project Path="../Dental.Core/Dental.Core.csproj" />
+  <Project Path="../Dental.Infrastructure/Dental.Infrastructure.csproj" />
+  <Project Path="Dental.UI.csproj" />
+</Solution>
